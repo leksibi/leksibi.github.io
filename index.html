@@ -1,11 +1,234 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>موقعي</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abderrahman Leksibi — Technicien</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a; --bg2: #111111;
+      --gold: #c9a84c; --gold2: #e8c97a;
+      --white: #f0ede6; --grey: #666;
+      --border: rgba(201,168,76,0.2);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 4rem; border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.88); backdrop-filter: blur(14px);
+    }
+    .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--gold); letter-spacing: 0.22em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--grey); text-decoration: none; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--gold); }
+    .hero {
+      min-height: 100vh; display: grid; grid-template-columns: 1.1fr 0.9fr;
+      align-items: center; padding: 8rem 4rem 4rem; position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; top: -20%; right: -8%; width: 650px; height: 650px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%); pointer-events: none;
+    }
+    .hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--gold); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1.4rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+    .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 7.5vw, 7.5rem); line-height: 0.92; letter-spacing: 0.02em; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+    .hero-name span { display: block; color: var(--gold); }
+    .hero-title { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--grey); margin-top: 1.6rem; letter-spacing: 0.12em; opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s; }
+    .hero-title em { color: var(--gold2); font-style: normal; }
+    .hero-desc { max-width: 400px; margin-top: 1.8rem; font-size: 0.93rem; line-height: 1.85; color: #999; opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s; }
+    .hero-buttons { display: flex; gap: 1rem; margin-top: 2.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 1s; }
+    .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--gold); color: var(--bg); }
+    .btn-primary:hover { background: var(--gold2); }
+    .btn-outline { border: 1px solid var(--border); color: var(--grey); background: transparent; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-right { display: flex; justify-content: center; align-items: center; position: relative; opacity: 0; animation: fadeIn 1.2s ease forwards 0.7s; }
+    .ring { width: 280px; height: 280px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; position: relative; }
+    .ring::before { content: ''; position: absolute; inset: -20px; border-radius: 50%; border: 1px dashed rgba(201,168,76,0.15); animation: spin 20s linear infinite; }
+    .ring::after { content: ''; position: absolute; inset: -45px; border-radius: 50%; border: 1px dashed rgba(201,168,76,0.08); animation: spin 35s linear infinite reverse; }
+    .ring-inner { width: 200px; height: 200px; border-radius: 50%; background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%); border: 1px solid rgba(201,168,76,0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+    .ring-icon { font-size: 2.5rem; line-height: 1; }
+    .ring-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 4rem; }
+    .section { padding: 6rem 4rem; }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--gold); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.8rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; margin-bottom: 3rem; letter-spacing: 0.03em; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+    .skill-card { background: var(--bg2); border: 1px solid var(--border); padding: 1.8rem 1.6rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .skill-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; }
+    .skill-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-3px); }
+    .skill-card:hover::before { opacity: 1; }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .skill-name { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.95rem; color: var(--white); margin-bottom: 0.4rem; }
+    .skill-desc { font-size: 0.8rem; color: var(--grey); line-height: 1.6; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-text p { font-size: 0.95rem; line-height: 1.9; color: #999; margin-bottom: 1.2rem; }
+    .about-text p strong { color: var(--white); font-weight: 500; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .stat-box { background: var(--bg2); border: 1px solid var(--border); padding: 1.8rem; text-align: center; }
+    .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--gold); line-height: 1; display: block; }
+    .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.5rem; display: block; }
+    .contact-section { padding: 6rem 4rem; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .contact-inner { max-width: 640px; }
+    .contact-email { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; padding: 1.2rem 1.8rem; border: 1px solid var(--border); background: var(--bg); text-decoration: none; transition: border-color 0.3s; }
+    .contact-email:hover { border-color: var(--gold); }
+    .contact-email-icon { font-size: 1.2rem; color: var(--gold); }
+    .contact-email-text { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--white); letter-spacing: 0.05em; }
+    footer { padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--grey); letter-spacing: 0.1em; }
+    .footer-link { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; text-decoration: none; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+      .hero-right { display: none; }
+      .section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-section { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+      .divider { margin: 0 1.5rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1>مرحباً بكم في موقعي!</h1>
-  <p>هذا موقعي على GitHub Pages</p>
+
+  <nav>
+    <div class="nav-logo">A.Leksibi</div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-tag">// Portfolio — 2026</p>
+      <h1 class="hero-name">
+        Abderrahman
+        <span>Leksibi</span>
+      </h1>
+      <p class="hero-title"><em>Technicien</em> &nbsp;·&nbsp; IT &amp; Systems</p>
+      <p class="hero-desc">
+        Passionate technician specializing in IT infrastructure, networking, and system maintenance.
+        Committed to delivering reliable technical solutions with precision and professionalism.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Contact Me</a>
+        <a href="#skills" class="btn btn-outline">View Skills</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="ring">
+        <div class="ring-inner">
+          <div class="ring-icon">⚙️</div>
+          <div class="ring-label">Technicien</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section" id="skills">
+    <p class="section-label">// 01 — Expertise</p>
+    <h2 class="section-title">Skills &amp;<br>Capabilities</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🖥️</div>
+        <div class="skill-name">Hardware Maintenance</div>
+        <div class="skill-desc">Diagnosis, repair, and upgrade of computers and peripherals.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">Networking</div>
+        <div class="skill-desc">Installation and configuration of LAN/WAN networks and routers.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐧</div>
+        <div class="skill-name">Linux / Windows</div>
+        <div class="skill-desc">System administration, troubleshooting, and server management.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔒</div>
+        <div class="skill-name">IT Security</div>
+        <div class="skill-desc">Basic cybersecurity practices and network protection.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-name">Self-Hosting</div>
+        <div class="skill-desc">Proxmox, Nextcloud, Docker and home lab infrastructure.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔧</div>
+        <div class="skill-name">Technical Support</div>
+        <div class="skill-desc">End-user support, documentation, and problem-solving.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section" id="about">
+    <p class="section-label">// 02 — About</p>
+    <h2 class="section-title">About<br>Me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm <strong>Abderrahman Leksibi</strong>, a dedicated technician with a strong passion for technology and infrastructure. I enjoy solving complex technical challenges and building reliable systems that work.</p>
+        <p>My expertise spans from hardware maintenance to network configuration and server management. I'm always eager to learn new technologies and improve my technical skills.</p>
+        <p>Outside of work, I run a personal <strong>homelab</strong> where I experiment with self-hosted services, virtualization, and network configurations.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box">
+          <span class="stat-number">IT</span>
+          <span class="stat-label">Specialist</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Availability</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">MA</span>
+          <span class="stat-label">Based in Morocco</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">+5</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <p class="section-label">// 03 — Contact</p>
+      <h2 class="section-title">Get In<br>Touch</h2>
+      <p style="color:#999; font-size:0.93rem; line-height:1.8; max-width:420px;">
+        Have a project or need technical support? Feel free to reach out —
+        I'm always open to new opportunities.
+      </p>
+      <a href="mailto:a.leksibi@gmail.com" class="contact-email">
+        <span class="contact-email-icon">✉</span>
+        <span class="contact-email-text">a.leksibi@gmail.com</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-copy">© 2026 — Abderrahman Leksibi. All rights reserved.</p>
+    <a href="https://github.com/leksibi" class="footer-link" target="_blank">github.com/leksibi</a>
+  </footer>
+
 </body>
 </html>
